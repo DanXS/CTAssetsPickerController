@@ -172,7 +172,7 @@
     else if ([asset valueForProperty:ALAssetPropertyType] == ALAssetTypeUnknown)
         cell.textLabel.text = @"Unknown";
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ #%i", cell.textLabel.text, indexPath.row + 1];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ #%li", cell.textLabel.text, indexPath.row + 1];
     
     cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[asset valueForProperty:ALAssetPropertyDate]];
     cell.imageView.image = [UIImage imageWithCGImage:asset.thumbnail];
@@ -245,7 +245,7 @@
         else if ([asset valueForProperty:ALAssetPropertyType] == ALAssetTypeUnknown)
             cell.textLabel.text = @"Unknown";
         
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ #%i", cell.textLabel.text, indexPath.row + 1];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ #%li", cell.textLabel.text, indexPath.row + 1];
     }
 }
 
