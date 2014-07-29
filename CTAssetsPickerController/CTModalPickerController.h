@@ -30,6 +30,16 @@
 #import <UIKit/UIKit.h>
 #import "CTAssetsPageViewController.h"
 
-@interface CTModalPickerController : UITableViewController <CTAssetsPageViewControllerDelegate>
+@protocol CTModalPickerControllerDelegate
+
+- (void)modalPickerController:(id)modalPickerController didCompleteWithAssets:(NSArray*)assets;
+- (void)modalPickerController:(id)modalPickerController didCancelWithAssets:(NSArray*)assets;
 
 @end
+
+@interface CTModalPickerController : UITableViewController <CTAssetsPageViewControllerDelegate>
+    @property (weak, nonatomic) id<CTModalPickerControllerDelegate> delegate;
+
+@end
+
+

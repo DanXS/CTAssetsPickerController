@@ -87,12 +87,14 @@
 
 - (void)cancel:(id)sender
 {
-    // Delegate call to cancel the view
+    if ([self delegate])
+        [[self delegate] modalPickerController:self didCancelWithAssets:self.assets];
 }
 
 - (void)send:(id)sender
 {
-    // Delegate call to send selected photos/videos
+    if ([self delegate])
+        [[self delegate] modalPickerController:self didCompleteWithAssets:self.assets];
 }
 
 - (void)pickAssets:(id)sender
