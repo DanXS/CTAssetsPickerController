@@ -28,7 +28,8 @@
 
 
 #import <UIKit/UIKit.h>
+#import "CTAssetsPageViewController.h"
 
-@interface CTMasterViewController : UITableViewController
+@interface CTMasterViewController : UITableViewController <CTAssetsPageViewControllerDelegate>
 
 @end

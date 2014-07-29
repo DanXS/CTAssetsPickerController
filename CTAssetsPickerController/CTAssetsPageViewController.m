@@ -38,7 +38,8 @@
 
 @property (nonatomic, strong) NSArray *assets;
 @property (nonatomic, assign, getter = isStatusBarHidden) BOOL statusBarHidden;
-
+@property (nonatomic, strong) UIBarButtonItem* selectBarButtonItem;
+@property (nonatomic, strong) UIBarButtonItem* unselectBarButtonItem;
 @end
 
 
@@ -57,11 +58,57 @@
         self.assets                 = assets;
         self.dataSource             = self;
         self.delegate               = self;
+        self.pageViewDelegate       = nil;
         self.view.backgroundColor   = [UIColor whiteColor];
         self.automaticallyAdjustsScrollViewInsets = NO;
+        self.selectBarButtonItem    = [[UIBarButtonItem alloc] initWithTitle:@"Select" style:UIBarButtonItemStylePlain target:self action:@selector(toggleSelection)];
+        self.unselectBarButtonItem    = [[UIBarButtonItem alloc] initWithTitle:@"Unselect" style:UIBarButtonItemStylePlain target:self action:@selector(toggleSelection)];
+        
+        [self updateSelectedState];
     }
     
     return self;
+}
+
+- (void)setPageViewDelegate:(id<CTAssetsPageViewControllerDelegate>)pageViewDelegate
+{
+    _pageViewDelegate = pageViewDelegate;
+    [self updateSelectedState];
+}
+
+- (void)toggleSelection
+{
+    ALAsset* asset = [self.assets objectAtIndex:self.pageIndex];
+    if ([self isSelected])
+    {
+        [[self pageViewDelegate] unselectAsset:asset];
+    } else
+    {
+        [[self pageViewDelegate] selectAsset:asset];
+    }
+    [self updateSelectedState];
+}
+
+- (BOOL)isSelected
+{
+    ALAsset* asset = [self.assets objectAtIndex:self.pageIndex];
+    if (asset == nil || [self delegate] == nil)
+        return NO;
+    return [[self pageViewDelegate] isSelected:asset];
+}
+
+- (void)updateSelectedState
+{
+    if ([self pageViewDelegate] == nil)
+    {
+        [self.navigationItem setRightBarButtonItem:nil animated:YES];
+    } else
+    {
+        if ([self isSelected])
+            [self.navigationItem setRightBarButtonItem:self.unselectBarButtonItem animated:YES];
+        else
+            [self.navigationItem setRightBarButtonItem:self.selectBarButtonItem animated:YES];
+    }
 }
 
 - (void)viewDidLoad
@@ -112,6 +159,7 @@
                       completion:NULL];
         
         [self setTitleIndex:pageIndex + 1];
+        [self updateSelectedState];
     }
 }
 
@@ -126,7 +174,7 @@
     {
         CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForPageIndex:(index - 1)];
         page.dataSource = self;
-        
+        [self updateSelectedState];
         return page;
     }
     
@@ -142,7 +190,7 @@
     {
         CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForPageIndex:(index + 1)];
         page.dataSource = self;
-        
+        [self updateSelectedState];
         return page;
     }
     
@@ -160,6 +208,7 @@
         NSInteger index                 = vc.pageIndex + 1;
         
         [self setTitleIndex:index];
+        [self updateSelectedState];        
     }
 }
 

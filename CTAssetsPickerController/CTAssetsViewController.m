@@ -299,12 +299,30 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
 
         CTAssetsPageViewController *vc = [[CTAssetsPageViewController alloc] initWithAssets:self.assets];
         vc.pageIndex = indexPath.item;
+        vc.pageViewDelegate = self;
 
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
+- (void)selectAsset:(ALAsset*)asset
+{
+    NSMutableArray* selectedAssets = [[self picker] selectedAssets];
+    [selectedAssets insertObject:asset atIndex:[selectedAssets count]];
+    [self reloadData];
+}
 
+- (void)unselectAsset:(ALAsset*)asset
+{
+    NSMutableArray* selectedAssets = [[self picker] selectedAssets];
+    [selectedAssets removeObject:asset];
+    [self reloadData];
+}
+
+- (BOOL)isSelected:(ALAsset*)asset
+{
+    return [[[self picker] selectedAssets] indexOfObject:asset] != NSNotFound;
+}
 
 #pragma mark - Reload Assets
 

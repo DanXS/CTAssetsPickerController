@@ -27,10 +27,9 @@
 
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "CTAssetsPageViewController.h"
 
-
-
-@interface CTAssetsViewController : UICollectionViewController
+@interface CTAssetsViewController : UICollectionViewController <CTAssetsPageViewControllerDelegate>
 
 @property (nonatomic, strong) ALAssetsGroup *assetsGroup;
 

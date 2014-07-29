@@ -26,10 +26,14 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
+@protocol CTAssetsPageViewControllerDelegate
 
-
-
+- (void)selectAsset:(ALAsset*)asset;
+- (void)unselectAsset:(ALAsset*)asset;
+- (BOOL)isSelected:(ALAsset*)asset;
+@end
 
 
 /**
@@ -41,6 +45,7 @@
  *  The index of the photo or video with the currently showing item.
  */
 @property (nonatomic, assign) NSInteger pageIndex;
+@property (nonatomic, strong) id<CTAssetsPageViewControllerDelegate> pageViewDelegate;
 
 
 /**
