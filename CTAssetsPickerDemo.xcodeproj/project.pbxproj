@@ -43,7 +43,7 @@
 		ADE31D9617EFF08C008958B8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE31D9517EFF08C008958B8 /* main.m */; };
 		ADE31D9A17EFF08C008958B8 /* CTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE31D9917EFF08C008958B8 /* CTAppDelegate.m */; };
 		ADE31D9D17EFF08C008958B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADE31D9B17EFF08C008958B8 /* Main.storyboard */; };
-		ADE31DA017EFF08C008958B8 /* CTMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE31D9F17EFF08C008958B8 /* CTMasterViewController.m */; };
+		ADE31DA017EFF08C008958B8 /* CTModalPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE31D9F17EFF08C008958B8 /* CTModalPickerController.m */; };
 		ADE31DA517EFF08C008958B8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADE31DA417EFF08C008958B8 /* Images.xcassets */; };
 		ADE31DC217EFF159008958B8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31DC117EFF159008958B8 /* AssetsLibrary.framework */; };
 		ADE31DDA17F12FB4008958B8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADE31DDC17F12FB4008958B8 /* Localizable.strings */; };
@@ -92,8 +92,8 @@
 		ADE31D9817EFF08C008958B8 /* CTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAppDelegate.h; sourceTree = "<group>"; };
 		ADE31D9917EFF08C008958B8 /* CTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTAppDelegate.m; sourceTree = "<group>"; };
 		ADE31D9C17EFF08C008958B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		ADE31D9E17EFF08C008958B8 /* CTMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTMasterViewController.h; sourceTree = "<group>"; };
-		ADE31D9F17EFF08C008958B8 /* CTMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTMasterViewController.m; sourceTree = "<group>"; };
+		ADE31D9E17EFF08C008958B8 /* CTModalPickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTModalPickerController.h; sourceTree = "<group>"; };
+		ADE31D9F17EFF08C008958B8 /* CTModalPickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTModalPickerController.m; sourceTree = "<group>"; };
 		ADE31DA417EFF08C008958B8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		ADE31DC117EFF159008958B8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		ADE31DDD17F13073008958B8 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -175,8 +175,6 @@
 				ADE31D9817EFF08C008958B8 /* CTAppDelegate.h */,
 				ADE31D9917EFF08C008958B8 /* CTAppDelegate.m */,
 				ADE31D9B17EFF08C008958B8 /* Main.storyboard */,
-				ADE31D9E17EFF08C008958B8 /* CTMasterViewController.h */,
-				ADE31D9F17EFF08C008958B8 /* CTMasterViewController.m */,
 				ADE31DA417EFF08C008958B8 /* Images.xcassets */,
 				ADE31DDC17F12FB4008958B8 /* Localizable.strings */,
 				ADE31D9017EFF08C008958B8 /* Supporting Files */,
@@ -198,6 +196,8 @@
 		ADF20BD017F2737300E97692 /* CTAssetsPickerController */ = {
 			isa = PBXGroup;
 			children = (
+				ADE31D9F17EFF08C008958B8 /* CTModalPickerController.m */,
+				ADE31D9E17EFF08C008958B8 /* CTModalPickerController.h */,
 				ADF20BD117F2737300E97692 /* CTAssetsPickerController.h */,
 				ADF20BD217F2737300E97692 /* CTAssetsPickerController.m */,
 				AD58798218E54F0C00B5773D /* CTAssetsGroupViewController.h */,
@@ -330,7 +330,7 @@
 				ADDEA34E192F4C590049D6A7 /* CTAssetItemViewController.m in Sources */,
 				ADE31D9A17EFF08C008958B8 /* CTAppDelegate.m in Sources */,
 				AD58798A18E551E000B5773D /* CTAssetsGroupViewCell.m in Sources */,
-				ADE31DA017EFF08C008958B8 /* CTMasterViewController.m in Sources */,
+				ADE31DA017EFF08C008958B8 /* CTModalPickerController.m in Sources */,
 				AD58799618E5543500B5773D /* ALAssetsGroup+isEqual.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
