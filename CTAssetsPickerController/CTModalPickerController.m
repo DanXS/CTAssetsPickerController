@@ -97,7 +97,7 @@
         [[self delegate] modalPickerController:self didCompleteWithAssets:self.assets];
 }
 
-- (void)pickAssets:(id)sender
+- (void)pickAssets:(id)sender animated:(BOOL)animated
 {
     if (!self.assets)
         self.assets = [[NSMutableArray alloc] init];
@@ -120,10 +120,9 @@
     }
     else
     {
-        [self presentViewController:picker animated:YES completion:nil];
+        [self presentViewController:picker animated:animated completion:nil];
     }
 }
-
 
 #pragma mark - Table View
 
@@ -187,7 +186,7 @@
 {
     if (indexPath.row == self.assets.count)
     {
-        [self pickAssets:self];
+        [self pickAssets:self animated:YES];
         return;
     }
     
@@ -339,45 +338,54 @@
 
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAsset:(ALAsset *)asset
 {
-    // Enable video clips if they are at least 5s
-    if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo])
-    {
-        NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
-        return lround(duration) >= 5;
-    }
-    else
-    {
-        return YES;
-    }
+    return YES;
 }
 
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
 {
-    if (picker.selectedAssets.count >= 10)
+    if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo])
+    {
+        NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
+        if (lround(duration) >= 90)
+        {
+            UIAlertView *alertView =
+            [[UIAlertView alloc] initWithTitle:@"Video is too long"
+                                       message:@"This video cannot exceed 90 seconds."
+                                      delegate:nil
+                             cancelButtonTitle:nil
+                             otherButtonTitles:@"OK", nil];
+            
+            [alertView show];
+            return NO;
+        }
+    }
+    
+    if (picker.selectedAssets.count > 15)
     {
         UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:@"Attention"
-                                   message:@"Please select not more than 10 assets"
+        [[UIAlertView alloc] initWithTitle:@"Too many photos selected"
+                                   message:@"Please select no more than 15 photos or videos."
                                   delegate:nil
                          cancelButtonTitle:nil
                          otherButtonTitles:@"OK", nil];
         
         [alertView show];
+        return NO;
     }
     
     if (!asset.defaultRepresentation)
     {
         UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:@"Attention"
-                                   message:@"Your asset has not yet been downloaded to your device"
+        [[UIAlertView alloc] initWithTitle:@"Unable to send this media"
+                                   message:@"This media has not yet been downloaded to your device."
                                   delegate:nil
                          cancelButtonTitle:nil
                          otherButtonTitles:@"OK", nil];
-        
         [alertView show];
+        return NO;
     }
     
-    return (picker.selectedAssets.count < 10 && asset.defaultRepresentation != nil);
+    return YES;
 }
 
 @end

@@ -39,6 +39,7 @@
 
 @interface CTModalPickerController : UITableViewController <CTAssetsPageViewControllerDelegate>
     @property (weak, nonatomic) id<CTModalPickerControllerDelegate> delegate;
+    - (void)pickAssets:(id)sender animated:(BOOL)animated;
 
 @end
 
