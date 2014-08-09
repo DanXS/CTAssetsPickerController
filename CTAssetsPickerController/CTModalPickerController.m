@@ -360,7 +360,7 @@
         }
     }
     
-    if (picker.selectedAssets.count > 15)
+    if (picker.selectedAssets.count >= 15)
     {
         UIAlertView *alertView =
         [[UIAlertView alloc] initWithTitle:@"Too many photos selected"
