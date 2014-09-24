@@ -25,6 +25,7 @@
  
  */
 
+#import <ui/UIFont+Quicksand.h>
 #import "CTAssetsPickerConstants.h"
 #import "CTAssetsPickerController.h"
 #import "CTAssetsGroupViewController.h"
@@ -332,11 +333,11 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     UIImageView *padlock = [self padlockImageView];
     
     UILabel *title =
-    [self auxiliaryLabelWithFont:[UIFont boldSystemFontOfSize:17.0]
+    [self auxiliaryLabelWithFont:[UIFont boldQuicksandFontOfSize:17.0]
                            color:[UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1]
                             text:NSLocalizedString(@"This app does not have access to your photos or videos.", nil)];
     UILabel *message =
-    [self auxiliaryLabelWithFont:[UIFont systemFontOfSize:14.0]
+    [self auxiliaryLabelWithFont:[UIFont quicksandFontOfSize:14.0]
                            color:[UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1]
                             text:NSLocalizedString(@"You can enable access in Privacy Settings.", nil)];
     
@@ -351,12 +352,12 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 - (UIView *)noAssetsView
 {
     UILabel *title =
-    [self auxiliaryLabelWithFont:[UIFont systemFontOfSize:26.0]
+    [self auxiliaryLabelWithFont:[UIFont quicksandFontOfSize:26.0]
                            color:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1]
                             text:NSLocalizedString(@"No Photos or Videos", nil)];
     
     UILabel *message =
-    [self auxiliaryLabelWithFont:[UIFont systemFontOfSize:18.0]
+    [self auxiliaryLabelWithFont:[UIFont quicksandFontOfSize:18.0]
                            color:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1]
                             text:[self noAssetsMessage]];
     
