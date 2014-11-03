@@ -25,6 +25,7 @@
  
  */
 
+#import <ui/UIFont+Quicksand.h>
 #import "CTAssetsViewCell.h"
 #import "ALAsset+assetType.h"
 #import "ALAsset+accessibilityLabel.h"
@@ -58,7 +59,7 @@ static UIColor *disabledColor;
 
 + (void)initialize
 {
-    titleFont       = [UIFont systemFontOfSize:12];
+    titleFont       = [UIFont quicksandFontOfSize:12];
     titleHeight     = 20.0f;
     videoIcon       = [UIImage imageNamed:@"CTAssetsPickerVideo"];
     titleColor      = [UIColor whiteColor];

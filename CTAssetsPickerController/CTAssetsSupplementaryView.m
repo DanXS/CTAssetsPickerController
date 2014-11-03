@@ -25,6 +25,7 @@
  
  */
 
+#import <ui/UIFont+Quicksand.h>
 #import "CTAssetsSupplementaryView.h"
 
 
@@ -62,7 +63,7 @@
 - (UILabel *)supplementaryLabel
 {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectInset(self.bounds, 8.0, 8.0)];
-    label.font = [UIFont systemFontOfSize:18.0];
+    label.font = [UIFont quicksandFontOfSize:18.0];
     label.textAlignment = NSTextAlignmentCenter;
     label.translatesAutoresizingMaskIntoConstraints = NO;
     
