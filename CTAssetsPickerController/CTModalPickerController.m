@@ -346,11 +346,11 @@
     if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo])
     {
         NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
-        if (lround(duration) >= 90)
+        if (lround(duration) > 10)
         {
             UIAlertView *alertView =
             [[UIAlertView alloc] initWithTitle:@"Video is too long"
-                                       message:@"This video cannot exceed 90 seconds."
+                                       message:@"Videos cannot exceed 10 seconds."
                                       delegate:nil
                              cancelButtonTitle:nil
                              otherButtonTitles:@"OK", nil];
