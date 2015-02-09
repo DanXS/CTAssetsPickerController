@@ -28,7 +28,9 @@
 
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
-
+#ifdef COM_PS
+#import <app/views/PSViewController.h>
+#endif
 
 
 @protocol CTAssetsPickerControllerDelegate;
@@ -36,8 +38,11 @@
 /**
  *  A controller that allows picking multiple photos and videos from user's photo library.
  */
+#ifdef COM_PS
+@interface CTAssetsPickerController : PSViewController
+#else
 @interface CTAssetsPickerController : UIViewController
-
+#endif
 /**
  *  The assets picker’s delegate object.
  */

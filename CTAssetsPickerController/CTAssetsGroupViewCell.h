@@ -27,10 +27,15 @@
 
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#ifdef COM_PS
+#import <app/views/PSTableViewCell.h>
+#endif
 
-
-
+#ifdef COM_PS
+@interface CTAssetsGroupViewCell : PSTableViewCell
+#else
 @interface CTAssetsGroupViewCell : UITableViewCell
+#endif
 
 - (void)bind:(ALAssetsGroup *)assetsGroup showNumberOfAssets:(BOOL)showNumberOfAssets;
 

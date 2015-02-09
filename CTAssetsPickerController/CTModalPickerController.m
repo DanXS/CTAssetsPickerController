@@ -31,6 +31,8 @@
 #import "CTAssetsPageViewController.h"
 #import "CTModalPickerController.h"
 
+#import <ui/UIFont+Quicksand.h>
+
 
 @interface CTModalPickerController ()
 <CTAssetsPickerControllerDelegate, UIPopoverControllerDelegate>
@@ -71,7 +73,7 @@
                                      style:UIBarButtonItemStylePlain
                                     target:self
                                     action:@selector(send:)];
-    
+
     self.navigationItem.leftBarButtonItem = clearButton;
     self.navigationItem.rightBarButtonItem = addButton;
     
@@ -128,12 +130,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.assets.count + 1;
+    if (section == 0)
+        return self.assets.count;
+    else if (section == 1)
+        return 1;
+    else
+        return 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -145,25 +152,38 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+#ifdef COM_PS
+    PSTableViewCell* cell;
+#else
     UITableViewCell* cell;
-    
-    if (indexPath.row == self.assets.count)
+#endif
+    if (indexPath.section == 1 && indexPath.row == 0)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"PlaceholderCell"];
-        
+#ifdef COM_PS
+        if (!cell)
+        {
+            cell = [[PSTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlaceholderCell"];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            [cell setAlwaysSelected:YES];
+        }
+#else
         if (!cell)
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlaceholderCell"];
-        
+#endif
         [[cell textLabel] setTextColor:[[UIApplication sharedApplication] keyWindow].tintColor];
         [[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
         return cell;
     }
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"SelectedImageCell"];
-    
+#ifdef COM_PS
+    if (!cell)
+        cell = [[PSTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SelectedImageCell"];
+#else
     if (!cell)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SelectedImageCell"];
-    
+#endif
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
     
     if ([asset valueForProperty:ALAssetPropertyType] == ALAssetTypePhoto)
@@ -184,7 +204,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == self.assets.count)
+    if (indexPath.section == 1 && indexPath.row == 0)
     {
         [self pickAssets:self animated:YES];
         return;
@@ -199,7 +219,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == [self.assets count])
+    if (indexPath.section == 1)
         return NO;
     return YES;
 }
@@ -217,11 +237,23 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (section == 0)
+    {
+        NSInteger numberOfRows = self.assets.count;
+        if (numberOfRows == 0)
+            return 0.0f;
+        else
+            return 20.0f;
+    }
+    return 0.0f;
+}
+
 - (void)updatePlaceholder
 {
-    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:[[self assets] count] inSection:0];
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
     UITableViewCell* placeholderCell = [[self tableView] cellForRowAtIndexPath:indexPath];
-    
     if (self.assets.count > 0)
         [[placeholderCell textLabel] setText:@"Change selection"];
     else

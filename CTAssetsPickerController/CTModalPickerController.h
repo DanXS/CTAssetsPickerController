@@ -29,6 +29,10 @@
 
 #import <UIKit/UIKit.h>
 #import "CTAssetsPageViewController.h"
+#ifdef COM_PS
+#import <app/controllers/tables/PSTableViewController.h>
+#import <app/views/PSTableViewCell.h>
+#endif
 
 @protocol CTModalPickerControllerDelegate
 
@@ -37,7 +41,11 @@
 
 @end
 
+#ifdef COM_PS
+@interface CTModalPickerController : PSTableViewController <CTAssetsPageViewControllerDelegate>
+#else
 @interface CTModalPickerController : UITableViewController <CTAssetsPageViewControllerDelegate>
+#endif
     @property (weak, nonatomic) id<CTModalPickerControllerDelegate> delegate;
     - (void)pickAssets:(id)sender animated:(BOOL)animated;
 

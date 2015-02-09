@@ -31,8 +31,9 @@
 #import "CTAssetsGroupViewController.h"
 #import "CTAssetsPageViewController.h"
 #import "CTAssetsViewControllerTransition.h"
-
-
+#ifdef COM_PS
+#import <app/controllers/navigation/PSNavigationController.h>
+#endif
 
 
 NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPickerSelectedAssetsChangedNotification";
@@ -82,7 +83,11 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 - (void)setupNavigationController
 {
     CTAssetsGroupViewController *vc = [[CTAssetsGroupViewController alloc] init];
+#ifdef COM_PS
+    PSNavigationController *nav = [[PSNavigationController alloc] initWithRootViewController:vc];
+#else
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+#endif
     nav.delegate = self;
     
     [nav willMoveToParentViewController:self];
@@ -415,7 +420,10 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
                                     target:nil
                                     action:nil];
     
-    NSDictionary *attributes = @{NSForegroundColorAttributeName : [UIColor blackColor]};
+    NSDictionary *attributes = @{
+                                 NSForegroundColorAttributeName : [UIColor blackColor],
+                                 NSFontAttributeName : [UIFont quicksandFontOfSize:16.0f]
+                                 };
     
     [title setTitleTextAttributes:attributes forState:UIControlStateNormal];
     [title setTitleTextAttributes:attributes forState:UIControlStateDisabled];

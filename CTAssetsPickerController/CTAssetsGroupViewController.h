@@ -26,9 +26,15 @@
  */
 
 #import <UIKit/UIKit.h>
+#ifdef COM_PS
+#import <app/controllers/tables/PSTableViewController.h>
+#endif
 
-
-
+#ifdef COM_PS
+@interface CTAssetsGroupViewController : PSTableViewController
+#else
 @interface CTAssetsGroupViewController : UITableViewController
+#endif
+
 
 @end
