@@ -265,7 +265,7 @@
     NSArray* visibleRows = [[self tableView] indexPathsForVisibleRows];
     for (NSIndexPath* indexPath in visibleRows)
     {
-        if (indexPath.row == [self.assets count])
+        if (indexPath.section != 0)
             continue;
         
         UITableViewCell* cell = [[self tableView] cellForRowAtIndexPath:indexPath];
